@@ -1,0 +1,137 @@
+{% extends "cinema/layout.html" %}
+
+
+{% block contentHead %}
+<base href="/">
+<div class="header">
+  <div class="col-md-12">
+  <div class="header-info">
+    <h1>BIG HERO 6</h1>
+    <p class="age"><a href="#">All Age</a> Don Hall, Chris Williams</p>
+    <p class="review">Rating	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;  8,5/10</p>
+    <p class="review reviewgo">Genre	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp;&nbsp; Animation, Action, Comedy</p>
+    <p class="review">Release &nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp; 7 November 2014</p>
+    <p class="special">The special bond that develops between plus-sized inflatable robot Baymax, and prodigy Hiro Hamada, who team up with a group of friends to form a band of high-tech heroes.</p>
+    <a class="video" href="/video"><i class="video1"></i>WATCH TRAILER</a>
+    {% if user.is_authenticated %}
+     <a class="book" href="/admin/cinema/ticket/"><i class="book1"></i>BOOK TICKET</a>
+     {% else %}
+     <a class="book" href="/admin"><i class="book1"></i>BOOK TICKET</a>
+   {% endif %}
+  </div>
+</div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+
+<!-- ======= Theater Section ======= -->
+<section class="theater"> 
+  <div class="col-md-12 review-slider">   
+    {% if movies %}
+    <ul id="flexiselDemo1">
+    {% for movie in movies %}
+    <li style="padding-right:20px">
+      <a href="/movies/{{movie.id}}" class="text-white">
+        {% if movie.image %}
+           <img  src="{{ movie.image }}" alt="{{ movie.name }}"  style="width: 235px;">
+        {% else %}
+          <img src="{% static 'img/movie-placeholder.png' %}" alt="{{ movie.name }}" style="width: 235px;">
+        {% endif %}
+        <h3 class="p-2 text-center" style="color: white">{{ movie.name }}</h3>
+      </a>
+    </li>   
+    {% endfor %}
+   </ul>
+    {% else %}
+      <p>No theaters are available.</p>
+    {% endif %}
+  </div>
+</section>
+
+<div class="video">
+ <iframe  src="https://www.youtube.com/embed/avz06PDqDbM" frameborder="0" allowfullscreen></iframe>
+</div>
+
+
+<div class="news">
+ <div class="col-md-6 news-left-grid">
+   <h3>Don’t be late,</h3>
+   <h2>Book your ticket now!</h2>
+   <h4>Easy, simple & fast.</h4>
+   {% if user.is_authenticated %}
+   <a class="book" href="/admin/cinema/ticket/"><i class="book1"></i>BOOK TICKET</a>
+   {% else %}
+   <a class="book" href="/admin"><i class="book1"></i>BOOK TICKET</a>
+ {% endif %}
+   <p>Get Discount up to <strong>10%</strong> if you are a member!</p>
+ </div>
+
+ <div class="clearfix"></div>
+</div>
+<div class="more-reviews">
+  <ul id="flexiselDemo2">
+ <li><img src="{% static 'images/m1.jpg' %}" alt=""/></li>
+ <li><img src="{% static 'images/m2.jpg' %}" alt=""/></li>
+ <li><img src="{% static 'images/m3.jpg' %}" alt=""/></li>
+ <li><img src="{% static 'images/m4.jpg' %}" alt=""/></li>
+</ul>
+<script type="text/javascript" src="{% static 'js/jquery.flexisel.js' %}"></script>	
+ <script type="text/javascript">
+  $(document).ready(function()  {
+ 
+ $("#flexiselDemo2").flexisel({
+   visibleItems: 4,
+   animationSpeed: 1000,
+   autoPlay: true,
+   autoPlaySpeed: 3000,    		
+   pauseOnHover: false,
+   enableResponsiveBreakpoints: true,
+   responsiveBreakpoints: { 
+     portrait: { 
+       changePoint:480,
+       visibleItems: 2
+     }, 
+     landscape: { 
+       changePoint:640,
+       visibleItems: 3
+     },
+     tablet: { 
+       changePoint:768,
+       visibleItems: 3
+     }
+   }
+ });
+
+  
+  $("#flexiselDemo1").flexisel({
+    visibleItems: 6,
+    animationSpeed: 1000,
+    autoPlay: true,
+    autoPlaySpeed: 3000,    		
+    pauseOnHover: false,
+    enableResponsiveBreakpoints: true,
+    responsiveBreakpoints: { 
+      portrait: { 
+        changePoint:480,
+        visibleItems: 2
+      }, 
+      landscape: { 
+        changePoint:640,
+        visibleItems: 3
+      },
+      tablet: { 
+        changePoint:768,
+        visibleItems: 4
+      }
+    }
+  });
+});
+</script>
+</div>
+<!-- ======= Welcome Section ======= -->
+
+{% endblock %}
